@@ -1,24 +1,44 @@
+import pathlib
+import yaml
+import sys
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from pathlib import Path
 
-def make_train_test_data(df):
-    train_csv, test_csv = train_test_split(df, test_size=0.2, random_state=42)
-    return train_csv, test_csv
+
+def load_data(data_path):
+    # Load your dataset from a given path
+    df = pd.read_csv(data_path) 
+    return df
+
+
+def split_data(df, test_split, seed):
+    # Split the dataset into train and test sets
+    train, test = train_test_split(df, test_size=test_split, random_state=seed)
+    return train, test
+
+
+def save_data(train, test, output_path):
+    # Save the split datasets to the specified output path
+    pathlib.Path(output_path).mkdir(parents=True, exist_ok=True)
+    train.to_csv(output_path + "/train.csv", index=False)
+    test.to_csv(output_path + "/test.csv", index=False)
+
 
 def main():
 
-    # Process raw data into train/test splits and save to output path.
-    df = pd.read_csv("A:\\Aniket_Scidentai\\MLOPS\\predict_calorie_expenditure\\data\\raw\\Predict_Calorie_Expenditure.csv")
+    curr_dir = pathlib.Path(__file__)
+    home_dir = curr_dir.parent.parent.parent
+    params_file = home_dir.as_posix() + "/params.yaml"
+    params = yaml.safe_load(open(params_file))["make_dataset"]
 
-    train_csv, test_csv = make_train_test_data(df)
+    input_file = sys.argv[1]
+    data_path = home_dir.as_posix() + input_file
+    output_path = home_dir.as_posix() + "/data/processed"
 
-    # Create output directory if it doesn't exist
-    output_dir = Path("A:\\Aniket_Scidentai\\MLOPS\\predict_calorie_expenditure\\data\\processed")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    data = load_data(data_path)
+    train_data, test_data = split_data(data, params["test_split"], params["seed"])
+    save_data(train_data, test_data, output_path)
 
-    train_csv.to_csv(output_dir / 'train.csv', index=False)
-    test_csv.to_csv(output_dir / 'test.csv', index=False)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

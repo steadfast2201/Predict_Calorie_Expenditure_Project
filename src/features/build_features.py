@@ -2,6 +2,9 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
+import pathlib
+import sys
+import yaml
 
 def apply_log_transformation(df, a: float):
     if a == 0:
@@ -17,12 +20,23 @@ def apply_square_transformation(df, a: float):
 
 
 def main():
+    curr_dir = pathlib.Path(__file__)
+    home_dir = curr_dir.parent.parent.parent
+    params_file = home_dir.as_posix() + "/params.yaml"
+    params = yaml.safe_load(open(params_file))["build_features"]
 
-    df_train = pd.read_csv("A:\\Aniket_Scidentai\\MLOPS\\predict_calorie_expenditure\\data\\data\\processed\\train.csv.csv")
-    df_test = pd.read_csv("A:\\Aniket_Scidentai\\MLOPS\\predict_calorie_expenditure\\data\\data\\processed\\test.csv.csv")
+    input_path = sys.argv[1]
+    output_path = sys.argv[2]
+    pathlib.Path(output_path).mkdir(parents=True, exist_ok=True)
 
-    apply_log_transformation(df_train, 0)
-    apply_log_transformation(df_test, 0)
+    train_df = pd.read_csv(f"{input_path}/train.csv")
+    test_df = pd.read_csv(f"{input_path}/test.csv")
 
-    apply_square_transformation(df_train, 0.678)
-    apply_square_transformation(df_test, 0.678)
+    apply_log_transformation(train_df, 0)
+    apply_log_transformation(test_df, 0)
+
+    apply_square_transformation(train_df, 0.678)
+    apply_square_transformation(test_df, 0.678)
+
+    train_df.to_csv(f"{output_path}/train.csv", index=False)
+    test_df.to_csv(f"{output_path}/test.csv", index=False)

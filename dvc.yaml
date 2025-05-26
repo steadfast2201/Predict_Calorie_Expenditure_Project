@@ -1,0 +1,24 @@
+stages:
+  make_dataset:
+    cmd: python ./src/data/make_dataset.py ./data/raw/Predict_Calorie_Expenditure.csv
+    deps:
+    - ./data/raw/Predict_Calorie_Expenditure.csv
+    - ./src/data/make_dataset.py
+    params:
+    - make_dataset.test_split
+    - make_dataset.seed
+    outs:
+    - ./data/processed/train.csv
+    - ./data/processed/test.csv
+
+  build_features:
+    cmd: python ./src/features/build_features.py ./data/processed ./data/features
+    deps:
+    - ./data/processed/train.csv
+    - ./data/processed/test.csv
+    - ./src/features/build_features.py
+    params:
+    - build_features
+    outs:
+    - ./data/features/train.csv
+    - ./data/features/test.csv

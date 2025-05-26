@@ -1,0 +1,26 @@
+schema: '2.0'
+stages:
+  make_dataset:
+    cmd: python ./src/data/make_dataset.py ./data/raw/Predict_Calorie_Expenditure.csv
+    deps:
+    - path: ./data/raw/Predict_Calorie_Expenditure.csv
+      hash: md5
+      md5: 970f84f7178e87d71712d049abcbcc35
+      size: 35463548
+    - path: ./src/data/make_dataset.py
+      hash: md5
+      md5: cb8a9029ce4f49376406d689222b605f
+      size: 1304
+    params:
+      params.yaml:
+        make_dataset.seed: 2023
+        make_dataset.test_split: 0.2
+    outs:
+    - path: ./data/processed/test.csv
+      hash: md5
+      md5: af7e5ddb0232fd15064c3335f7bb7fef
+      size: 7241890
+    - path: ./data/processed/train.csv
+      hash: md5
+      md5: 2fcf687dd483211af58ca4af2bd98457
+      size: 28971724

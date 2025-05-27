@@ -19,6 +19,9 @@ def apply_square_transformation(df, a: float):
     else:
         df['Body_Temp'] = np.log(0.65 * (df['Body_Temp'].max() + 1 - 0.65 * df['Body_Temp']))
 
+def apply_encoding(df):
+    df['Sex'] = df['Sex'].map({'Male': 0, 'Female': 1})
+
 def distribution_plot(df, live):
     sns.set_style("whitegrid")
     numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns
@@ -61,6 +64,9 @@ def main():
     apply_square_transformation(train_df, 0.678)
     apply_square_transformation(test_df, 0.678)
 
+    apply_encoding(train_df)
+    apply_encoding(test_df)
+    
     with Live() as live:
         distribution_plot(train_df, live)
 

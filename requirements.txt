@@ -16,3 +16,4 @@ matplotlib
 numpy
 PyYAML
 dvclive
+xgboost

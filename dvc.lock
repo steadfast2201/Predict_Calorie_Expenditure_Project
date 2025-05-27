@@ -24,3 +24,30 @@ stages:
       hash: md5
       md5: 2fcf687dd483211af58ca4af2bd98457
       size: 28971724
+  build_features:
+    cmd: python ./src/features/build_features.py ./data/processed ./data/features
+    deps:
+    - path: ./data/processed/test.csv
+      hash: md5
+      md5: af7e5ddb0232fd15064c3335f7bb7fef
+      size: 7241890
+    - path: ./data/processed/train.csv
+      hash: md5
+      md5: 2fcf687dd483211af58ca4af2bd98457
+      size: 28971724
+    - path: ./src/features/build_features.py
+      hash: md5
+      md5: 9e7d365a92d704a873b026a2f92ce598
+      size: 1782
+    params:
+      params.yaml:
+        build_features:
+    outs:
+    - path: ./data/features/test.csv
+      hash: md5
+      md5: 7dc1e792f114a5da0ab0cd0fe7651765
+      size: 11583144
+    - path: ./data/features/train.csv
+      hash: md5
+      md5: be77f2d507e27f3e6d4d09b86d745000
+      size: 46336319

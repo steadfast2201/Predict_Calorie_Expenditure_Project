@@ -37,8 +37,8 @@ stages:
       size: 28971724
     - path: ./src/features/build_features.py
       hash: md5
-      md5: b5e73530235ec36af86764b56c9b5178
-      size: 1369
+      md5: fc46f1cc2735ca0475a437877aefd568
+      size: 2275
     params:
       params.yaml:
         build_features:

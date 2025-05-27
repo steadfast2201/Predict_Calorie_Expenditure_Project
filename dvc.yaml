@@ -22,3 +22,5 @@ stages:
     outs:
     - ./data/features/train.csv
     - ./data/features/test.csv
+plots:
+- dvclive/plots/images

@@ -22,5 +22,28 @@ stages:
     outs:
     - ./data/features/train.csv
     - ./data/features/test.csv
+
+  train_model:
+    cmd: python ./src/models/train_model.py ./data/features
+    deps:
+    - ./data/features/train.csv
+    - ./src/models/train_model.py
+    params:
+    - train_model.seed
+    - train_model.n_estimators
+    - train_model.max_depth
+    - train_model.learning_rate
+    outs:
+    - ./models
+
+  test_model:
+    cmd: python ./src/models/test_model.py ./data/features ./models/model.joblib
+    deps:
+    - ./data/features/test.csv
+    - ./src/models/test_model.py
+    - ./models/model.joblib
+    params:
+    outs:
+
 plots:
 - dvclive/plots/images

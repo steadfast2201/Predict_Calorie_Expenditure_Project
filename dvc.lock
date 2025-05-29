@@ -37,17 +37,40 @@ stages:
       size: 28971724
     - path: ./src/features/build_features.py
       hash: md5
-      md5: fc46f1cc2735ca0475a437877aefd568
-      size: 2275
+      md5: 9cd3d32d04512658836212dc1003ea39
+      size: 2424
     params:
       params.yaml:
         build_features:
     outs:
     - path: ./data/features/test.csv
       hash: md5
-      md5: 7dc1e792f114a5da0ab0cd0fe7651765
-      size: 11583144
+      md5: 0a7863475e01dc87d04e755763bbc6e0
+      size: 10833504
     - path: ./data/features/train.csv
       hash: md5
-      md5: be77f2d507e27f3e6d4d09b86d745000
-      size: 46336319
+      md5: 77fe3815e68e05edcad028dd6ff19b90
+      size: 43334517
+  train_model:
+    cmd: python ./src/models/train_model.py ./data/features
+    deps:
+    - path: ./data/features/train.csv
+      hash: md5
+      md5: 77fe3815e68e05edcad028dd6ff19b90
+      size: 43334517
+    - path: ./src/models/train_model.py
+      hash: md5
+      md5: 0e6fa706cb5170a372435c423b5f569f
+      size: 1773
+    params:
+      params.yaml:
+        train_model.learning_rate: 0.1
+        train_model.max_depth: 8
+        train_model.n_estimators: 100
+        train_model.seed: 21
+    outs:
+    - path: ./models
+      hash: md5
+      md5: a44fce7dfc64e71c7fb33eed0bbc6c3b.dir
+      size: 1545532
+      nfiles: 1

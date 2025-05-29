@@ -22,6 +22,9 @@ def apply_square_transformation(df, a: float):
 def apply_encoding(df):
     df['Sex'] = df['Sex'].map({'Male': 0, 'Female': 1})
 
+def calculate_BMI(df):
+    df["BMI"] = df["Weight"]/(df["Height"]*0.01)
+
 def distribution_plot(df, live):
     sns.set_style("whitegrid")
     numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns
@@ -66,6 +69,12 @@ def main():
 
     apply_encoding(train_df)
     apply_encoding(test_df)
+
+    calculate_BMI(train_df)
+    calculate_BMI(test_df)
+
+    # train_df.drop(columns={"Weight","Height"}, inplace=True)
+    # test_df.drop(columns={"Weight", "Height"}, inplace=True)
     
     with Live() as live:
         distribution_plot(train_df, live)

@@ -60,8 +60,8 @@ stages:
       size: 43334517
     - path: ./src/models/train_model.py
       hash: md5
-      md5: 0e6fa706cb5170a372435c423b5f569f
-      size: 1773
+      md5: 90da3d926ec49b3a570633d4b2a774a0
+      size: 1720
     params:
       params.yaml:
         train_model.learning_rate: 0.1
@@ -74,3 +74,18 @@ stages:
       md5: a44fce7dfc64e71c7fb33eed0bbc6c3b.dir
       size: 1545532
       nfiles: 1
+  test_model:
+    cmd: python ./src/models/test_model.py ./data/features ./models/model.joblib
+    deps:
+    - path: ./data/features/test.csv
+      hash: md5
+      md5: 0a7863475e01dc87d04e755763bbc6e0
+      size: 10833504
+    - path: ./models/model.joblib
+      hash: md5
+      md5: b16ea60d0d4246e5d4445dacec24ac7a
+      size: 1545532
+    - path: ./src/models/test_model.py
+      hash: md5
+      md5: e9b48d010ee485d55583ae30188c934c
+      size: 2808

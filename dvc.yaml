@@ -42,8 +42,8 @@ stages:
     - ./data/features/test.csv
     - ./src/models/test_model.py
     - ./models/model.joblib
-    params:
-    outs:
-
+metrics:
+- dvclive/metrics.json
 plots:
-- dvclive/plots/images
+- dvclive/plots/metrics:
+    x: step

@@ -61,11 +61,11 @@ def main():
     train_df = pd.read_csv(f"{input_path}/train.csv")
     test_df = pd.read_csv(f"{input_path}/test.csv")
 
-    apply_log_transformation(train_df, 0)
-    apply_log_transformation(test_df, 0)
+    # apply_log_transformation(train_df, 0)
+    # apply_log_transformation(test_df, 0)
 
-    apply_square_transformation(train_df, 0.678)
-    apply_square_transformation(test_df, 0.678)
+    # apply_square_transformation(train_df, 0.678)
+    # apply_square_transformation(test_df, 0.678)
 
     apply_encoding(train_df)
     apply_encoding(test_df)
